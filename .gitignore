@@ -5,6 +5,8 @@ obj/
 bin/
 # no user preference files
 *.userprefs
+# no crappy OSX files
+.DS_Store
 # nothing from test-results folders
 test-results/
 # no zip files stored in original folders

@@ -1,12 +1,16 @@
 namespace Accounting
 {
     using System;
+	using System.Diagnostics;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Logging;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
 	
 	using Newtonsoft.Json;
@@ -25,17 +29,30 @@ namespace Accounting
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-			services.AddMemoryCache();
+			services.AddMemoryCache()
+					.AddMvc();
         }
 		
 		private IMemoryCache mCache;
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IMemoryCache cache)
-        {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMemoryCache cache, ILoggerFactory log)
+		{
+       Debug.Write($"Startup debug output:  {env.EnvironmentName}");
 			mCache = cache;
+			//app.AddConsole(Configuration.GetSection("Logging"));
+    //log.AddDebug();
+    log.CreateLogger("Startup")                     // add
+        .LogInformation($"Startup: {env.EnvironmentName}");   // this
+			// log.AddConsole();
+			// log.AddDebug();
+			Debug.Write($"Startup debug output:  {env.EnvironmentName}");
+			//app.UseMiddleware<DeveloperExceptionPageMiddleware>();
 			
-            app.Run(ProcessResponse);
+			app.UseMvc( routes => {
+				routes.MapRoute("default", "{controller=Accounting}/{action=Index}/{id?}");
+			});
+            //app.Run(ProcessResponse);
         }
 		
 		public async Task ProcessResponse(HttpContext context) 
@@ -75,18 +92,7 @@ namespace Accounting
 
 		public string GetInputForm ()
 		{
-			return string.Join(Environment.NewLine, HtmlDoc.GenerateTopAndTail (FormElements()));
-		}
-		
-		public IEnumerable<string> FormElements() {
-			yield return "<Form name='CCEntry' action='/return' method='POST'>";
-			yield return "<table>";
-			yield return "        <tr><td>Description</td><td><input type='text' name='Desc'></td></tr>";
-			yield return "        <tr><td>Date</td><td><input type='date' name='Date'></td></tr>";
-			yield return "        <tr><td>Amount</td><td><input type='text' name='Amount'></td></tr>";
-			yield return "        <tr><td></td><td><input type='submit'></td></tr>";
-			yield return "    </table>";
-			yield return "</Form>";
+			return "input form"; //string.Join(Environment.NewLine, HtmlDoc.GenerateTopAndTail (FormElements()));
 		}
 	}
 }
