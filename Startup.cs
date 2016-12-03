@@ -19,12 +19,7 @@ namespace Accounting
 	using Newtonsoft.Json;
 	
 	using Microsoft.Extensions.Caching.Memory;
-
-	using System.Net;
-	using System.Net.Http;
     using System.IO;
-    
-	using HtmlUtil;
 	
     public class Startup {
 
@@ -71,46 +66,6 @@ namespace Accounting
 			});
             //app.Run(ProcessResponse);
         }
-		
-		public async Task ProcessResponse(HttpContext context) 
-		{
-			var exInfo = "";
-			try {
-                var path = context.Request.Path.Value;
-                if (path.ToLower().Contains("/input"))
-                {
-					var inputForm = GetInputForm();
-                    await context.Response.WriteAsync(inputForm);
-                }
-                else
-                {
-					var requestHtml = DisplayRequest(context.Request);
-                    await context.Response.WriteAsync( requestHtml);
-                }
-			}
-			catch(Exception ex) {
-				
-				var tmp = $"<html><head></head><body><p>{exInfo}</p><p>{ex}</p></body></html>";
-				await context.Response.WriteAsync(tmp);
-			}
-        }
-		
-		public string DisplayRequest(HttpRequest req) {
-			
-			var json = "error";
-			try {
-			json = JsonConvert.SerializeObject(req.Form);
-			} catch (Exception ex){
-				json = ex.ToString();
-			}
-			var html = new [] {"<p><code>", json, "</code></p>"};
-			return string.Join(Environment.NewLine, html);
-		}
-
-		public string GetInputForm ()
-		{
-			return "input form"; //string.Join(Environment.NewLine, HtmlDoc.GenerateTopAndTail (FormElements()));
-		}
 	}
 
 	public class UnhandledExceptionFilter : ExceptionFilterAttribute {
