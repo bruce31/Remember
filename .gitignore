@@ -3,14 +3,24 @@
 obj/
 # nothing in binary folders
 bin/
+# nothing in DockerImage folders
+DockerImage/
+# nothing in artifacts folders
+artifacts/
+# nothing in Nuget folders
+Nuget/
 # no user preference files
 *.userprefs
-# no crappy OSX files
-.DS_Store
+# no .lock.json files
+*.lock.json
 # nothing from test-results folders
 test-results/
+# no from test result files
+TestResult.xml
 # no zip files stored in original folders
 */original/*.zip
 # nothing from /OutFiles folders
 OutFiles/
+# no crappy OSX files
+.DS_Store
 # trailing comment so I don't need to worry about new lines at end of file

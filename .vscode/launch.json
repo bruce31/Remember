@@ -2,21 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/Accounting.dll",
-            "args": [],
-            "cwd": "${workspaceRoot}",
-            "stopAtEntry": false
-        },
-        {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/Accounting.dll",
+            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/osx.10.11-x64/DevCore.Remember.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,
@@ -34,12 +24,6 @@
                     "command": "xdg-open"
                 }
             }
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processName": "<example>"
         }
     ]
 }
