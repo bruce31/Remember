@@ -1,7 +1,6 @@
 namespace Accounting {
 
     using System;
-    using System.Diagnostics;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.Filters;
@@ -25,8 +24,7 @@ namespace Accounting {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services) {
-			services.AddMemoryCache()
-					.AddMvc(options => {
+			services.AddMvc(options => {
                         options.Filters.Add(new UnhandledExceptionFilter());
                         });
         }
@@ -34,7 +32,7 @@ namespace Accounting {
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory log) {
-			Debug.Write($"Startup debug output:  {env.EnvironmentName}");
+			//Debug.Write($"Startup debug output:  {env.EnvironmentName}");
 			//app.AddConsole(Configuration.GetSection("Logging"));
 			//log.AddDebug();
 			log.CreateLogger("Startup")                     // add
@@ -42,7 +40,7 @@ namespace Accounting {
 
 			// log.AddConsole();
 			// log.AddDebug();
-			Debug.Write($"Startup debug output:  {env.EnvironmentName}");
+			//Debug.Write($"Startup debug output:  {env.EnvironmentName}");
 			Console.WriteLine($"Startup debug output:  {env.EnvironmentName}");
 
 			app.UseDeveloperExceptionPage();

@@ -1,9 +1,11 @@
-﻿@model DevCore.Remember.Models.SystemLoginDetails
-@{ViewData["Title"] = "Index";}
-<h2>Index</h2>
-
-<p>  5 + 4 = @((5 + 4).ToString())</p>
-<p>@Model.SystemName</p>
-<p>Hello from Manage/Index!</p>
-<p><a href='/Service/Netscape'>Netscape</a></p>
-<p><a href='/Service/IE'>IE</a></p>
+﻿<form action='/Manage/Index'>
+    <p>Enter system and username separated by a colon eg ubuntu:jsmith and then the password.<br />
+    On submit safari should prompt to remember the password in the keychain.<br />
+    In iOS Settings / Safari / Passwords it will show up as localhost - ubuntu:jsmith</p>
+    <table>
+        <tr><td>System:Username: </td><td><input type="text" id='username'></td></tr>
+        <tr><td>Password: </td><td><input type="password" id="password"></td></tr>
+    </table>
+    <p>  </p>
+    <p><input type="submit">  </p>
+</form>
